@@ -1,0 +1,670 @@
+% Created 2017-03-23 Thu 11:37
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage[section]{placeins}
+\author{chris hepplewhite et al.}
+\date{\today}
+\title{A Hyper-Spectral Multi-Sensor Infrared Radiance Data Record for Climate Trending: \\  
+  Validation using Simultaneous Nadir Observations \\  
+  \vspace{3mm}
+  {****} DRAFT {****}\\
+}
+
+\hypersetup{
+ pdfauthor={chris hepplewhite},
+ pdftitle={},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 25.1.1 (Org mode 8.3.6)}, 
+ pdflang={English}}
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\section{Abstract.}
+\label{sec:orgheadline1}
+
+A long term hyper-sepctral radiance record using multiple sensors for climate monitoring is proposed. We describe a method to achieve this by converting the spectral radiance measurements to a common spectral grid. We use the considerable overlap of three operational satellite-based weather missions to accumulate a large statistically significant data set from which to study the bias and error characteristics of this method.
+
+
+The conversion of the radiance measurements from AQUA-AIRS, Suomi-NPP CrIS and MetOp IASI to a common spectral grid is described and validated. The common grid adopted here is that used by the nominal CrIS instrument. The goal with the current sensors is to produce a radiance climate record from September 2002 well into the future, and currently representing 14+ years, for studying climate trends and anomalies.
+
+
+The conversion of the radiance spectra from one spectral grid to another is detailed in a companion paper. The method is validated using simulations from standard atmospheric profiles and a line-by-line forward model. A considerable advantage of this method over others is that trends and anomalies in top-of-atmosphere radiance can be obtained over a large spectral range in the thermal infra-red at high spectral resolution.
+
+The principal method used to validate the combined data set is with very large samples of simultaneous nadir overpass (SNO) observations. From these we determine the biases and stability characteristics of the sensors and any dependencies on the SNO scenes.
+
+We evaluate clearly traceable uncertainties to the final estimates from which a common radiance record is derived. Over much of the spectral and dynamic range of the sensors studied this method resolves sensor bias to the order of 10 mK with sensor bias of order 0.2 K, depending on the frequency, and with standard errors of sample averages typically of order 0.1 mK. 
+
+
+\section{Introduction}
+\label{sec:orgheadline2}
+
+Detection of climate change signals requires long-term, highly accurate measurements with optimal spatial coverage, for example \cite{wielicki2013} and for a period of time sufficiently long so as to distinguish natural internal variations. The long-term calibration and spectral stability of observation systems are essential for the reliable detection of climate variations. The spatio-temporal resolution and coverage of the measurements should be representative of the true state of the atmosphere. Whereas ground based observation systems are generally well calibrated, they tend to observe regionally and not globally. The observing satellite systems we consider provide the global coverage and their calibration is much improved recently. The challenge now is to demonstrate that current satellite sensor technologies are suitable for this task.
+
+The distinction is made between internal climate variability and external forcing \cite{solomon2010}. Internal variations of interest include, but are not limited to, the El Nino Southern Oscillation (ENSO), the Pacific Decadal Oscillation (PDO) and Atlantic multi-decadal oscillation (AMOC). External factors include, but not limited to human activities and industrial processes, Solar changes, asteroids and volcanic erruptions \footnote{the convention is to refer to internal variability for atmospheric and oceanic processes }. See for example, the IPCC (Intergovernmental Panel on Climate Change) assessment report 4, working group 1 and references therein \cite{ipcc2007_wg1}. 
+
+There are a variety of environmental variables (ECVs) that are used to monitor the state of the climate, see for example the World Meteorological Organisation (WMO) Global Climate Observing System (GCOS), reference \cite{gcos}. As described therein, the dynamic range, resolution and absolute calibration accuracy required to properly record the variable being measured are delineated. The approach taken here is to use the spectral radiance measured by several sensors, over a range of infra-red wavelengths to monitor the state of the climate.
+
+There are a large variety of sensors being used to measure the ECVs, see ref \cite{Hollmann2013} and new ones are deployed to augment or replace old sensors.  Since around the turn of the century 2000, improved technologies have resulted in more stable sensors and longer periods of observations with the same sensor, furthermore, new ones have been deployed so there is a substantial overlap. This helps to produce a meaningful climate quality data record. Nevertheless, the sensors and the observational sampling are not identical, and so it is necessary to develop new techniques to analyze and merge the data sets to obtain a product that can be used for climate monitoring and research.
+
+When working with the observations from different, but similar, sensors great care must be taken to understand and quantify the statistical characteristics of the data and the detail of the scenes being observed and any dependencies thereon. Different strategies have been adopted to compare the different sensors, for example, refer to \cite{Chander2013} for an excellent overview and references therein. In this work simultaneous nadir observations (SNOs) are best suited to comparing the AIRS and CrIS sensors because of their similar viewing geometry, orbit and spectral coverage. The SNO methodology has been employed for many years and for many different sensors, sometimes direct differencing \cite{Wang2007} and double differencing, \cite{Wang2011}, and when the spectral bands are somewhat different, \cite{Uprety2013}. In the case of the comparison between Aqua AIRS and Metop-IASI, where the geographical converage is limited, see for example \cite{GSICS2008}, which means the scenes do not encompass the full dynamic range of global observations, or in \cite{Elliott2009} which considers a small selection of channels but extended dynamic range and using ECMWF modelled radiances as a transfer standard for double differences. In this work SNOs for AIRS, CrIS and IASI are used to take advantage of the strengths of each combination.
+
+In order to compare the measured signal from different sensors the spectral content of the radiance must be comparable. If the two sensors have identical spectral response functions then this is achieved by definition. In general for hyperspectral sensors with spectral resolution similar or finer than pressure broadened emission/absorption lines of atmospheric gases, in the infra-red, there will not be sufficient correspondance of channels between the two sensors. Different methods have been attempted that take advantage of features of the emission spectra and sensor bandwidth, for example in \cite{Wang2015} the radiance for AIRS, IASI and CrIS are compared by selecting 25 spectral bands each of which include several channels, and averaging for samples of SNOs. In the work of \cite{Ciren2003} AIRS and HIRS radiances are compared using a simple convolution of selected AIRS channels onto the HIRS channels. These methods were more rigorously employed in the work of \cite{Wang2007} where several AIRS channels are convolved into the much broader HIRS channel for the SNO samples. The spectral radiance of CrIS and IASI can be compared over the common spectral band using conventional deconvolution methodology, for example, \cite{Wang2015}.
+
+In this work the conversion of radiances from one spectral grid to another is extended to include deconvolution of the AIRS channels to CrIS, for the common spectral band. Details of this method are described in a companion paper \cite{Motteler2017a} and a summary of its validation is provided below. 
+
+This paper is concerned with a method for producing a continuous climate quality radiance record from the hyper-spectral infra-red measurements obtained from low-Earth orbiting (LEO) satellites by translating the radiance observations on to a common wavenumber scale.
+
+The following sections first describe the sensors and observations available to us; then the method for translating the observations, then the validation of the methods using SNO pairs with a discussion of results, conclusions and suggestions for further work.
+
+\section{Observations}
+\label{sec:orgheadline3}
+
+The sensors used in this study are the Atmospheric InfraRed Sounder (AIRS) on the NASA EOS Aqua satellite, the Cross-track Infrared Sounder (CrIS) on the Suomi-NPP satellite and the Infrared Atmospheric Sounding Interferometer (IASI) on the European Metop satellite.
+
+In brief summary, AIRS is an echelle grating spectrometer covering the spectral range from 3.74 to 4.61 \(\mu m\) , from 6.20 to 8.22 \(\mu m\), and from 8.8 to 15.4 \(\mu m\), with nominal spectral resolution \(\lambda/\delta\lambda= 1200\) using a total of 2378 spectral channels. The details of the spectral response functions are publically available e.g see reference \cite{airscalib}. AIRS is mounted on the NASA EOS Aqua spacecraft which is in a LEO sun-synchronous orbit with 98 degree inclination and equator crossing about 1:30pm. AIRS is a nadir sounder with a lateral scanning mirror that provides 90 footprints from about 45 degree either side of nadir. The footprints are about 13.5 km diameter at nadir. For more details see reference \cite{airseos}. The data used for this work are the level 1b geolocated calibrated radiances, which are further processed to level 1c for conversion, see below.
+
+The CrIS sensor is a Michelson interferometer with 1305 channels covering the spectral range in three sub-bands from 3.92 to 4.64 \(\mu m\), 5.71 to 8.26 \(\mu m\) and 9.13 to 15.3 \(\mu m\) . When first launched, the spectral resolution in each sub-band was different with LW: 0.625 cm\(^{\text{-1}}\), MW: 1.25 cm\(^{\text{-1}}\), SW: 2.5 cm\(^{\text{-1}}\), but since December 2014 all bands operate with 0.625 cm\(^{\text{-1}}\) resolution. CrIS is mounted on the Suomi-NPP weather satellite, also in a LEO, sun-synchronous, 98-degree inclination orbit and 1:30 pm equator crossing time. The Suomi-NPP orbit altitude is about 100 km higher than AQUA, so it's orbit period is slightly longer. CrIS is a nadir sounder with a lateral scanning mirror that provides 30 ground views within 45 degrees either side of nadir. Each ground view consists of nine fields of view on a square grid, each with a diameter 14 km at nadir. For more details see for example references \cite{crisweb} and \cite{criscal}. The data used in this work are the geolocated calibrated radiances processed through the Interface Data Processing Segment (IDPS).
+
+The IASI sensor is a Michelson interferometer with 8461 channels covering the spectral range from 3.62 to 15.5 \(\mu m\) with a nominal resolution of about 0.5 cm\(^{\text{-1}}\). IASI is mounted on the MetOp satellite, also a LEO, sun-synchronous, 98 degree inclination, with a 9:30 am equator crossing time. IASI is a nadir sounder with a lateral scanner. Each ground view consists of four fields of view on a square grid, each about 13 km diameter at nadir. There are 30 ground views within 45 degrees either side of nadir. For more details see for example references \cite{iasiweb} and \cite{iasiover}. The data used are the gelocated calibrated radiances supplied to level 1c.
+
+AIRS has been operating since about June 2002, CrIS on Suomi-NPP since about December 2011 and IASI-1 on MetOp-A since about November 2006 and IASI-2 on Metop-B since about October 2012. There is therefore considerable temporal overlap of these missions for which comparisons can be made. At the time of writing CRIS-2 on JPSS-1 is due for launch late 2017. Note that the orbit of Metop-A has morning equator crossing whilst AQUA and Suomi-NPP and afternoon crossing which influences where the SNOs are located.
+
+It is worth noting that there have been continuous hyperspectral infrared global atmospheric soundings since 2002, and the prospect of another decade or so with just those instruments described above. Furthermore, the spectral range, spectral resolution and spatial sampling of these sensors have similar attributes, which permits comparisons to be made rather readily. Nevertheless, differences between the sensors must be accounted for correctly.
+
+With the relatively long and increasing data set, it is possible to relate the  observations to known components of global internal climate variability and average global warming trends. There are several possible ways this can be done, including tracking levels of long-lived (passive) tracer gases, cloud amounts and surface temperature. 
+
+In this paper we describe the direct comparison of spectral radiance at the top of the atmosphere (TOA) as measured by the sensors. We produce a TOA spectral radiance data set with a common spectral grid and equivalent spectral response that can be used with multiple sensors to support climate studies.
+
+The techniques used and their validation are presented in the following sections.  
+
+\section{Methods}
+\label{sec:orgheadline6}
+
+This section firstly describes the techniques and methods used to generate a common set of spectral radiance channels from the individual sensors and secondly to acquire the observation data sets for the comparisons. 
+
+\subsection{Deconvolution}
+\label{sec:orgheadline4}
+
+The common spectral band used corresponds to that of the lowest resolution sensor. In practice the resolution of all sensors is not much different, so the choice to use CrIS standard resolution is convenient. In theory, any real or synthetic grid could be used but the deconvolution works better from high to low resolution. This choice may be revisited in the future, since CrIS changed to high-resolution in all three of its bands in December 2014.
+
+Consider the idealized case in which the spectral radiance received at the sensor is that from a blackbody Planck emitter and the radiance are sampled uniformly in frequency without gaps across the thermal IR (TIR). Then for a variety of sensors with different spectral response functions (SRF) or instrument line shapes (ILS) the deconvolution between sensors will be limited only by the knowledge of their response functions and since no bias is observed in the reconstructed radiances, these effects can be ignored \cite{Motteler2017b}. In this work, the pseudo-monochromatic radiance is determined at 0.0025 cm\(^{\text{-1}}\), the AIRS SRFs are evaluated at 0.01 cm\(^{\text{-1}}\) resolution and the intermediate grid is 0.1 cm\(^{\text{-1}}\).
+
+In the real case of TOA radiance in the thermal infrared, there are many bands of high contrast molecular emission lines, with line-widths varying according to the height in the atmosphere. In general, each sensor will sample the lines slightly differently and so the deconvolution of the radiance will be an approximation dependent upon the sampling interval and knowledge of the response functions. The method is shown to work well because the radiance is sampled at many close frequencies, shown in summary below and in detail in \cite{Motteler2017a}. This is self evident for the CrIS and IASI interferometers, but for AIRS is dependent upon using the level 1C spectra \cite{}, which has spectral gaps filled and faulty channels repaired.
+
+Suppose there are \(n\) channels on a frequency grid \(v\) of \(k\) points spanning the domains of the functions \(srf_i\) . Let \(S_k\) be an \(n\times k\) array such that \(s_{i,j} = srf_i(v_j)/w_i\), where \(w_i = \sum_j srf_i(v_j)\), that is where row \(i\) is \(srf_i(v)\) tabulated at the grid \(v\) and normalized so the row sum is 1.  If the channel centers are in increasing order \(S_k\) is banded, and if they are not too close,  the rows are linearly independent.  \(S_k\) is a linear transform whose domain is radiance at the grid \(v\) and whose range is channel radiances.  If \(r\) is radiance at the grid \(v\), then \(c = S_k r\) gives a good approximation of the channel radiances \(c_i = \int srf_i(v)r(v)\,dv\) .
+
+Considering the AIRS sensor, with the deconvolution applied to the intermediate grid, at \(0.1\ cm^{-1}\) , and let \(v_b = v_1,v_2,\ldots,v_m\) at the resolution of the tabulated SRFs.  Similar to \(S_k\), let \(S_b\) be an \(n\times m\) array where row \(i\) is \(srf_i(v)\) tabulated at the \(v_m\) grid, with rows normalized to 1. If \(r\) is radiance at the grid \(v_b\), then \(c = S_b r\) is still an approximation of \(\int srf_i(v)r(v)\,dv\) , since in practice it is performed on a discretized grid.
+
+Consider the linear system \(S_b x = c\), similar to the case \(S_k x = c\) above, where we are given \(S_b\) and channel signals \(c\) and want to find radiances \(x\).  Since \(n < m < k\), as with \(S_k\), the system will be under-determined, but more manageable because for the default resolutions \(m\) is approximately 40 times less than \(k\), so finding the pseudo-inverse of \(S_b\) becomes tractable.
+
+After the AIRS L1b data are processed to level 1C and some channels trimmed for acceptable channel spacing, then the matrix \(S_b\) becomes much improved with a condition number around 30. The deconvolved radiance on the intermediate grid is next reconvolved onto the CRIS user grid by double Fourier transformation. The useful channels are those that are included in the intersection of the bands of both sensors.  Only those channels that were not altered by the AIRS L1b clean and fill routine are used in the final comparison and analysis.
+
+The IASI to CrIS is a relatively easy translation because the IASI instrument spans the CrIS bands and has a nominal (though strongly apodized) higher resolution. Furthermore, IASI, unlike AIRS does not require pre-conditioning of any channels. For this translation, the IASI frequency grid is interpolated to the intermediate grid (0.1 cm\(^{\text{-1}}\) TBC), then the radiance is converted to the interferogram with the Fourier transform, to which is applied the inverse IASI apodization which is then taken back to radiance. This is then convolved from the intermediate grid to the CRIS channels. As would be expected, some ringing occurs at the band edges.
+
+\subsection{Acquisition of SNOs}
+\label{sec:orgheadline5}
+
+Determination of the simultaneous nadir observations from pairs of AIRS and CrIS, from IASI and CrIS pairs and AIRS and IASI is a rather simple process of computing the time and geometric separations of each from the geolocation fields in the granule data files, and selecting those that are within the prescribed criteria. The samples thus collected are described in the results section below. For the AIRS sensor, only the center track fields of view (FOV) numbers 43:1:48 are considered viable, for CrIS and IASI only fields of regard (FORs) 15 and 16 are considered viable. Note that for each CrIS FOR there are 9 FOVs and for IASI 4 FOVs, therefore there are 18 viable CrIS FOVs and 8 viable IASI FOVs available for finding close pairs. No other sub-setting or screening is applied.
+
+\section{Validation}
+\label{sec:orgheadline7}
+
+The translation of AIRS and IASI to the CrIS spectral grid is validated primarily by simulating the TOA radiance at high spectral resolution then convolving with the instrument SRF or ILS, then passing the simulated sensor signals through the translation process as outlined in the previous section and comparing results. Since CrIS has two spectral gaps in the TIR, the  645 \(cm^{-1}\) to 2570 \(cm^{-1}\) band is divided into three sub-regions labelled long, medium and short (LW, MW and SW resp.).
+
+The simulated TOA radiance is produced using the UMBC k-Compressed Radiative Transfer Algorithm (kCARTA) line-by-line (LBL) model \cite{kcarta1998} and 49 standard atmospheric composition profiles [\textit{add citation to TIGR}]. The forward model is computed at the native resolution of \(0.0025\ cm^{-1}\) and then convolved with the instrument response functions to produce a simulated true spectral radiance signal as measured by the sensors. The AIRS spectra are then translated onto the CrIS spectral grid, referred to as AIRS-to-CrIS, and the two are compared by simple subtraction. The average difference and the standard error of the difference are evaluated and plotted. The same is done for IASI-to-CrIS. 
+
+Figures \ref{fig:1a} and \ref{fig:1b} show the LW and MW band brightness temperature difference spectra for the translation of AIRS to CrIS for the 49 validation profiles.
+
+The main points to note are: 1). We use Hamming apodized radiances 2). There is no mean bias trend across the band, 3). The Hamming apodized mean residuals are near zero in the window regions and peak near 0.2 K near the Ozone band and some water lines, 4). The Hamming apodized standard deviations of the residuals are generally less than 0.02 K peaking near the Ozone band and some of the water lines, 5). The first couple of channels at the longwave end at 645 \(cm^{-1}\) and shotwave end at 1610 \(cm^{-1}\) are dominated by band edge effects.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=.9\linewidth]{./figs/a2cris_diff_LW.png}
+\caption{\label{fig:orgparagraph1}
+  Brightness temperature spectra for AIRS to CrIS LW band.}
+\label{fig:1a}
+\end{figure}
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=.9\linewidth]{./figs/a2cris_diff_MW.png}
+\caption{\label{fig:orgparagraph2}
+  Brightness temperature spectra for AIRS to CrIS MW band.}
+\label{fig:1b}
+\end{figure}
+
+Validation of the IASI to CrIS deconvolution using the 49 test profiles and kcarta simulations are shown for the LW and MW bands of CrIS in figures \ref{fig:2a} and \ref{fig:2b}. Points to note include: 1). There is no mean bias trend across the band 2). The mean residuals and standard deviation are tiny and $< 0.1 mK $ across the band, except for the few channels at band edges.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=.9\linewidth]{./figs/iasi_cris_diff_LW.png}
+\caption{\label{fig:orgparagraph1}
+  Brightness temperature spectra for IASI to CrIS LW band.}
+\label{fig:2a}
+\end{figure}
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=.9\linewidth]{./figs/iasi_cris_diff_MW.png}
+\caption{\label{fig:orgparagraph1}
+  Brightness temperature spectra for IASI to CrIS MW band.}
+\label{fig:2b}
+\end{figure}
+
+
+\section{Results}
+\label{sec:orgheadline12}
+The following sub-sections summarize the bias between each pair of sensors as a function of wavenumber for the selected SNO samples. For the IASI:CrIS and AIRS:CrIS SNOs, the IASI and AIRS spectral radiances are converted to the CrIS grid.  For the AIRS:IASI SNOs, the IASI are converted to the AIRS grid. Lastly, a summary for the double difference of AIRS and IASI compared to CrIS is given. We propose using the common radiance record on the CrIS spectral channels for the climate radiance record. Some discussion and methods to account for biases between the different sensors are provided. In this study, for brevity, we do not consider the shortest wavelength channels that are affected by reflected solar radiation.
+
+\subsection{IASI and CrIS SNOs}
+\label{sec:orgheadline8}
+The selection criteria for the IASI and CrIS SNOs are that any of the prescribed fields of view (FOV) (see above) between each sensor are less than 13 km and 20 minutes apart.  For each SNO pairing the FOVs are recorded. The data encompass the period from April 2012 to February 2014, in which there are 275,511 SNO pairs. Because of the different orbits
+of Suomi-NPP and Metop-A the coincident observations only occur at high latitudes as
+shown in figure \ref{fig:X1}
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=.6\linewidth]{./figs/IASI_CRIS_jplSNO_mapDelay.pdf}
+\caption{\label{fig:orgparagraph3}
+  Location map of IASI CrIS SNOs, with time delay in minutes.}
+\label{fig:X1}
+\end{figure}
+
+Note that because the latitude range is very restricted, the dynamic range will be limited and rather low; the warmest scenes will be clear views of the Norweigan Sea in NH summer.  Furthermore, there will tend to be high sensitivity to scene inhomogeneity in the window channels, with land/sea ice and ocean contrasts in close proximity. For example, the population of
+the brightness temperatures for the set in the 899 \(cm^{-1}\) window channel is shown in figure \ref{fig:X2}
+The expected range of B.T. observed by the sensors is from about 180 K to 310 K. Clearly,
+the majority of scenes involve ice - either in cloud or on the ground or ocean.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=.6\linewidth]{./figs/IC_sno_CrIS_900wn_hist.pdf}
+\caption{\label{fig:orgparagraph4}
+  CrIS window channel brightness temperature distribution of the samples.}
+\label{fig:X2}
+\end{figure}
+
+Evaluation of the bias between the two sensors is achieved by first converting all the
+IASI spectra on to the CrIS spectral grid, using the deconvolution tool described above.
+In the following figures \ref{fig:X3} and \ref{fig:X4} the average difference of all SNO pairs
+is evaluated, together with the standard error of the mean difference. A very few
+observations are eliminated based on the quality flag available in the L1C file, and some other non-physical observations are elimited based on extreme 6-sigma outliers. Notice the general slope in bias from 0.2 K to about 0.5 K from the long-wave to short wave end. The large bias of the first two or three channels at the ends of this band reflect the band edge limit of the deconvolution, and are not used.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=.6\linewidth]{./figs/IC_jplSNO_Bias_stdErr_LW.png}
+\caption{\label{fig:orgparagraph5}
+  CrIS - IASI bias (K) for all SNO samples from the set, in the LW band.}
+\label{fig:X3}
+\end{figure}
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=.6\linewidth]{./figs/IC_jplSNO_Bias_stdErr_MW.png}
+\caption{\label{fig:orgparagraph5}
+  CrIS - IASI bias (K) for all SNO samples from the set, in the MW band.}
+\label{fig:X4}
+\end{figure}
+
+There are many different ways to examine more closely the characteristics of the bias with this data set. Here, the sample is subset based on whether the scenes are in day-time (sun-lit) or night-time (eclipsed), and on whether they are in the north or south polar regions. This also provides a convenient warm and cold subset. Figure \ref{fig:X5} shows the mean spectra and the mean bias and standard error of the mean bias between IASI and CrIS for the day/night subsets. Notice, that despite the
+relatively large difference in the mean brightness temperatures between the two subsets, the biases are very similar.
+
+%\begin{figure}[htb]
+%\centering
+%\includegraphics[width=.6\linewidth]{./figs/IC_jplSNO_dayNight_Bias_stdErr_LW.png}
+%\caption{\label{fig:orgparagraph6}
+%  CrIS - IASI bias (K) subset by day and night. Upper panel shows the mean brightness temperature %spectrum. Lower panel the mean bias and standard error of the bias for each of the day/night %subsets.}
+%\label{fig:X5}
+%\end{figure}
+
+%\begin{figure}[htb]
+%\centering
+%\includegraphics[width=.6\linewidth]{./figs/IC_jplSNO_DayNight_Bias_stdErr_MW.png}
+%\caption{\label{fig:orgparagraph6}
+%  CrIS - IASI bias (K) subset by day and night. Upper panel shows the mean brightness temperature %spectrum. Lower panel the mean bias and standard error of the bias for each of the day/night %subsets.}
+%\label{fig:X6}
+%\end{figure}
+
+
+\begin{figure}[htb]
+    \centering
+    \subfloat[Long Wave]
+             {\includegraphics[width=6cm]{./figs/IC_jplSNO_dayNight_Bias_stdErr_LW.png} }
+    \quad
+    \subfloat[Medium Wave]
+             {\includegraphics[width=6cm]{./figs/IC_jplSNO_DayNight_Bias_stdErr_MW.png} }
+    \caption{CrIS - IASI bias (K) subset by day or night. Upper panel: Mean brightness temperature. Lower panel mean bias and standard error.}%
+    \label{fig:X5}%
+\end{figure}
+
+Figure \ref{fig:X6} shows the mean spectra, the mean bias and the standard error of the bias for the north and south subsets.
+As with the day/night subset although the scenes are very different the mean biases are
+very similar.
+
+\begin{figure}[htb]
+  \centering
+  \subfloat[Long Wave]
+           {\includegraphics[width=6cm]{./figs/IC_jplSNO_northSouth_Bias_stdErr_LW.png}}
+  \quad
+  \subfloat[Medium Wave]
+           {\includegraphics[width=6cm]{./figs/IC_jplSNO_NorthSouth_Bias_stdErr_MW.png}}
+  \caption{CrIS - IASI bias (K) subset by north or south hemisphere. Upper panel: Mean brightness temperature. Lower panel mean bias and standard error.}%
+  \label{fig:X6}
+\end{figure}
+
+To determine if the bias varies over the brightness temperature of the scenes, the SNO pairs are binned according to the BT for each channel from each pair. The contribution from each sensor in each BT bin is included without duplication.  A fine-grained quantile profiler is used to select the bin values for each channel, since different wavelengths will see different dynamic ranges.  In dividing up the samples into small bins it will be noticed that at the hot and cold ends of the range some bins have too few samples to be useful, as can be seen from figure \ref{fig:X7}, in which the standard error grows very large. This figure show the result for a single channel at $900 cm^{-1}$. Note that in this plot the bias is the IASI minus the CrIS observation, and compare the value at \(900 cm^{-1}\) to that shown in figure \ref{fig:X3} . Examining this figure suggests that the bias is less, and rather close to zero near 270 K, and increases slightly to colder scenes, with CrIS observations warmer than IASI. The limit of the sampling is from about 210 K to 280 K scenes, outside this range the estimate of bias is unreliable.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=.6\linewidth]{./figs/IC_jplSNO_Bias_stErr_900wn_vsScene.pdf}
+\caption{\label{fig:orgparagraph8}
+  IASI - CrIS bias (K) for channel at $900 cm^{-1}$ as a function of scene brightness temperature, upper panel, together with the standard error. Lower panel shows the sample size in the bins.}
+\label{fig:X7}
+\end{figure}
+
+Taking all 160 channels from about $800\ to\ 900 cm^{-1}$, the bias variation with scene
+is very consistent, with no outliers, summarizing these in figure \ref{fig:X8} showing the mean bias and standard deviation for all 160 channels. Taking small groups of channels starting at the longest wavelength (lowest numbered) shows the the bias is more constant with scene temperature and from about 710 \(cm^{-1}\) the bias takes on a slope like that shown in figure \ref{fig:X7}. At this point it would be speculation to attribute the variation of bias as a function of radiance, as it could be due to non-linearity of either or both sensors, for example. This study of scene dependent bias can be extended to all channels (not shown here).
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=.6\linewidth]{./figs/IC_jplSNO_Bias_std_LWchns_vsScene.pdf}
+\caption{\label{fig:orgparagraph9}
+  IASI - CrIS bias (K) for all 160 channels from 800 to 900 cm\(^{\text{-1}}\) as a function of scene brightness temperature, upper panel, together with the standard error.}
+\label{fig:X8}
+\end{figure}
+
+
+\subsection{AIRS and CrIS SNOs}
+\label{sec:orgheadline9}
+
+The selection criteria of the AIRS and CrIS SNOs (see above) are that the FOVs are located
+within 13 km and within 10 minutes of each other. For each SNO pair the CrIS FOV is recorded. 
+
+The data set encompasses the calendar year 2013. There are $1.393\times 10^{6}$ pairs, and they are distributed as shown in figure \ref{fig:Y1}.
+
+%For the tropical v10.0.0 set there are 4.232 x10\(^{\text{6}}\) SNO pairs, distributed within 50 degrees latitude of the equator. For the 'standard' JPL set . 
+Note i) there is a much higher surface-area density of data near the poles; 
+ii) Nearer the equator all pairs have a positive time delay, greatest at the equator with AIRS later than CrIS. Since the ascending node is at 1:30 pm local the 
+AIRS samples are later after local solar noon than the CrIS samples during the day; 
+iii) Only descending orbit (night) samples are available over Africa and Australia and only day time ones over South America, this has significant impact on the hot bias of the samples. Also note that even with close spatio-temporal sampling, the estimate of bias between the sensors will be better where the scene is more uniform.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=.6\linewidth]{./figs/2013_AirsCris_jplStnd_mapDelay.pdf}
+\caption{\label{fig:orgparagraph10}
+  Global distribution of the 2013 set, color indicates delay time in minutes.}
+\label{fig:Y1}
+\end{figure}
+
+Notice that the brightnes temperature population distribution for the window channel at $900 cm^{-1}$ for this SNO set is highly non-Gaussian, with a sharp drop and short hot tail and longer cold tail, indicative of large numbers of warm ocean samples, and a variety of clouds, respectively, as shown in figure \ref{fig:Y2}. In particular note that: 
+ii) The hottest scenes, greater than about 303 are exclusively over land during the day, with a very few up to 331 K; 
+iii) the peak around 295 K is indicative of clear tropical ocean scenes; 
+iv) the peak around 270 K is probably freezing water; 
+v) the relatively large population from about 240 K to 260 K is due to the large number of cold polar scenes and cold clouds. It is interesting to compare the scene distribution when restricted to the Tropics (not shown here). The fact that most samples with zero time delay occur exclusively at high latitudes and all tropical samples have the largest time delays has important consequences on how to interpret biases for these samples.
+
+Of further note is that for channels that are at wavelengths with weighting functions that peak higher in the atmosphere, the distributions tend to be more Gaussian than the window channels, with brightness temperatures populations that peak at levels dependent upon the altitude of the weighting function. In general the window channels provide the largest BT dynamic range.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=.6\linewidth]{./figs/2013_AC_stnd_Airs_900wn_hist.pdf}
+\caption{\label{fig:orgparagraph11}
+  Population distribution for AIRS window channel of 2013 set.}
+\label{fig:Y2}
+\end{figure}
+
+%\begin{figure}[htb]
+%\centering
+%\includegraphics[width=.9\linewidth]{../../gitLib/asl_sno/run/figs/2013_AC_trop_Airs_900wn_hist.pdf%}
+%\caption{\label{fig:orgparagraph12}
+%Population distribution of JPL Tropical 2013 subset.}
+%\end{figure}
+
+%\begin{figure}[htb]
+%\centering
+%\includegraphics[width=.9\linewidth]{../../gitLib/asl_sno/run/figs/2013_AirsCris_jpl_tropStnd_delay%Hist.pdf}
+%\caption{\label{fig:orgparagraph13}
+%Sensor sample delay (Airs observation time - CrIS observation time).}
+%\end{figure}
+
+%For example, figure \ref{fig:Y5} is a plot of an average spectrum 
+%of AIRS and CrIS for a sample of the SNO data. Notice that on this plot the AIRS data are level 1b, %and contain some un-filtered bad channels that are not used in the final
+%bias calculations. 
+%\begin{figure}[htb]
+%\centering
+%\includegraphics[width=.9\linewidth]{../../gitLib/asl_sno/run/figs/2013_trop_Airs_CrIS_Sample_Average_%Spectrum.pdf}
+%\caption{\label{fig:orgparagraph14}
+%Sample brightness temperature spectrum from the SNO set (Airs blue).}
+%\end{figure}
+
+With the conversion of AIRS level 1b radiance spectra first to the clean and filled level 1c
+then to the CrIS spectra grid, allows bias differences to be evaluated for the
+channels that are common to both AIRS and CrIS. An example of the mean brightness
+temperature bias $ CrIS-AIRS $ for the long wave (LW) band for all SNO samples in this
+data set, is shown in figure \ref{fig:Y6} notice that the standard error is very small.
+
+\begin{figure}[htb]
+  \centering
+  \subfloat[LW]{
+     \includegraphics[width=6cm]{./figs/AC_jplSNO_Bias_stdErr_LW_wModEdges.png}}
+  \quad
+  \subfloat[MW]{
+     \includegraphics[width=6cm]{./figs/AC_jplSNO_Bias_stdErr_MW_wModEdges.png}}
+  \caption{\label{fig:orgparagraph15}
+    2013 standard SNO mean sample bias (CrIS - AIRS). Vertical dashed lines mark AIRS array modeule boundaries.}
+  \label{fig:Y6}
+\end{figure}
+
+%\begin{figure}[htb]
+%\centering
+%\includegraphics[width=.9\linewidth]{../../gitLib/asl_sno/run/figs/2013_AC_jplSNO_std_LW_biasSte_wModu%les.pdf}
+%\caption{\label{fig:orgparagraph17}
+%2013 Tropical SNO mean sample bias (AIRS - CrIS) in the LW band.}
+%\end{figure}
+
+%\begin{figure}[htb]
+%\centering
+%\includegraphics[width=.9\linewidth]{../../gitLib/asl_sno/run/figs/2013_AC_jplSNO_std_MW_biasSte.pdf}
+%\caption{\label{fig:orgparagraph16}
+%2013 standard SNO mean sample bias (AIRS - CrIS) in the MW band.}
+%\end{figure}
+
+It is important to note that the original AIRS spectrum of observations include the repaired bad channels and filled gaps, before the spectrum is converted to the CrIS grid, therefore those artifacts are carried through to these spectral biases. In the final analysis only the original AIRS L1b channels that passed the quality screening used in the L1C processor are selected for evaluation of bias. Figure \ref{fig:Y6} also shows the frequencies of the AIRS array module edges. One can see the effect of different gain settings for some of the different modules as well as edge effects. In addition, several small spectral regions do not have any AIRS detectors and so a reconstructed during the AIRS L1C processing. These show up in the bias plots, for example $ 682 - 688 cm^{-1} $, $ 782 - 790 cm^{-1} $, $ 904 - 911 cm^{-1} $, $ 1046 - 1056 cm^{-1} $, $ 1272 - 1284 cm^{-1} $, $ 1443 - 1460 cm^{-1} $, $ 1527 - 1541 cm^{-1} $.
+
+The division of the SNOs into day/night or north/south hemisphere subsets is un-remarkable and not shown here.
+
+The variation of bias between AIRS and CrIS with scene brightness temperature is shown in figure \ref{fig:Y6} for a channel at $ 900 cm^{-1} $. As with the IASI CrIS comparison the bias is not constant over the dynamic range of interest.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=.6\linewidth]{./figs/AC_SNO_2013_900wn_bias_vs_scene.png}
+\caption{\label{fig:orgparagraph18}
+  AIRS - CrIS bias for a 900 cm-1 channel as a function of scene temperature.}
+\label{fig:Y6}
+\end{figure}
+
+The number of samples in a given month are sufficient to estimate any temporal trend of the bias, and the result is shown in figure \ref{fig:Y7} for a window channel. This analysis uses SNO data sets derived
+from the ASL CCAST CrIS data and AIRS L1C restricted to tropical scenes. The mean
+bias for this channel for the whole dataset is within uncertainty the same as the previous results shown. Note that no spectral calibration has been applied to the AIRS L1b data to take account of any drifts in the spectrometer. The trend is estimated to be about 2 to 3 mK per year at 95\% confidence. 
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=.6\linewidth]{./figs/AC_aslSNO_2012-15_trop_biasTrend_901wn_screened.png}
+\caption{\label{fig:orgparagraph18}
+  Temporal bias trend (AIRS - CrIS) for a 900 cm-1 channel}
+\label{fig:Y7}
+\end{figure}
+
+
+\subsection{AIRS and IASI SNOs}
+\label{sec:orgheadline10}
+The AIRS and IASI SNOs are restricted to the near-polar latitudes similar to the 
+CrIS and IASI SNOs discussed previously. The criteria for selection based upon spatial and temporal separation is the same as for CrIS and IASI SNOs. The data set used here is for 2013 and consists of about 165,000 SNO pairs. 
+
+The deconvolution of IASI onto the AIRS SRFs will not normally be performed for trending analysis, but is a useful exercise to demonstrate consistency amognst the different sensor pairing. In this study the AIRS L1b data are used therefore the spectral gaps, noisy channels of AIRS is clearly evident in the data. The
+brightness temperature bias AIRS - IASI for the LW band using all samples is shown in figure \ref{fig:Z1}. Nevertheless, a general trend of the bias can be observed across the LW band and between modules.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=.6\linewidth]{./figs/AI_SNO_2013_biasStdErr_LW.png}
+\caption{\label{fig:orgparagraph19}
+  AIRS - IASI SNO bias for the LW band.}
+\label{fig:Z1}
+\end{figure}
+
+For completeness, the variation of bias as a function of scene brightness for the window channel at $ 900 cm^{-1} $ is shown in figure \ref{fig:Z2} notice that most observations are around 250 K because of the polar coverage.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=.6\linewidth]{./figs/AI_jplSNO_bias_std_900wn_vScene.pdf}
+\caption{\label{fig:orgparagraph20}
+   IASI - AIRS SNO bias for the 900 cm window channel as a function of scene.}
+\label{fig:Z2}
+\end{figure}
+
+
+
+\subsection{AIRS and IASI on the common CrIS grid}
+\label{sec:orgheadline11}
+ We can directly compare AIRS, IASI and CrIS using the CrIS response function as the common grid, and choose one of the three as a pseudo-transfer standard for the other two.
+
+The bias for each of the three pairs of sensor SNO sets is shown in figure \ref{fig:U1} for the LW and MW bands. The upper panel shows the AIRS compared to CrIS and IASI and the lower panel CrIS compared to IASI.  The standard errors are not re-plotted here, but have numerical values the same as reported in the preceding sections. Note that in the lower panels, the CrIS - IASI bias follows the double difference of the upper panel.  
+
+
+\begin{figure}[htb]
+  \centering
+  \subfloat[LW]{
+    \includegraphics[width=6cm]{./figs/AC_AI_CI_biasBT_LW_legend.pdf}}
+  \quad
+  \subfloat[MW]{
+    \includegraphics[width=6cm]{./figs/AC_AI_CI_biasBT_MW_legend.pdf}}
+  \caption{\label{fig:orgparagraph21}
+    Combined plot of biases referenced to the CrIS grid. Upper panel: AIRS - IASI (blue) AIRS - CrIS (red), lower panel: CrIS - IASI.}
+  \label{fig:U1}
+\end{figure}
+
+
+\section{Conclusions}
+\label{sec:orgheadline13}
+The methods described in this paper provide a quantitative means to determine the bias, expressed in terms of brightness temperature, between different sensors across a relatively large spectral range. It does not, and can not, determine which sensor is the more accurate, but can provide clues as to how a given sensor is behaving when it exhibits the same bias characteristics against two independent sensors. In the case of AIRS, for example, there are distinct changes between some of the different detector modules.
+
+There are a few points to bear in mind when interpreting the results and some limitations of the method, which can be divided into intrinsic and sampling effects. In the deconvolution and translation to a different spectral grid, there tends to be ringing at the boundaries, which is mathematically inevitable, so caution should be made when comparing the first 5 or so channels at the boundaries of the full spectral range. The conversion is perfect where the the spectrum is flat or the nominal resolution perfectly captures the underlying spectral features. Examination of the residuals in the validation plots above, reveal these attributes, however they do not significantly add to the bias. In all cases the conversion to the interferometric ILS spectral wavenumber is followed by Hamming apodization.
+
+In respect of sampling effects, the method would give a perfect analysis of sensor bias if either the Earth scenes were perfectly spatially uniform and static, or the fields of view of the different sensors perfectly matched the same Earth scene at the same time. Furthermore, the results must be interpreted in the context of the dynamic range of the scenes, as illustrated in the figures showing scene dependent bias. Although the sampling is not perfect and scenes not uniform, there are sufficiently large numbers of SNO pairs available that statistical variations can be well characterized and mean bias is statistically significant. This is also illustrated in the scene dependent bias plots. In general, toward the hot and cold extreme scenes the sampling becomes limited, and especially in the hot scenes, the samples occur only over land during the day and for which there is a significant time delay between the two sensors, see \cite{Duan2014} and references therein - that suggest a land surface change change by 0.25 K in 10 minutes, depending on soil type, solar irradiance etc. There is clearly some advantage in restricting the SNOs to clear tropical ocean views, but then the dynamic range would be limited, at least for the window channels.
+
+One application of the method described here is for the creation of a long term climate radiance record from multiple sensors, that have suitable operational overlap. The best way to create such a record is to match the bias for each spectral channel on the common grid over the longest possible time period and dynamic range of the operational overlap. If the bias for this period is constant then a simple adjustment of the radiance based on the bias reported here can be applied. If there is no independent or corroborating measurement to alter the weight of each sensor, then equal weights are applied and the average bias would be applied to each sensor to create the most likely radiance on the common grid.
+
+\section{Further work}
+\label{sec:orgheadline14}
+TBD
+
+\section{Acronyms:}
+\label{sec:orgheadline15}
+\begin{itemize}
+\item AIRS: Atmospheric Infra-Red Sounder.
+\item CRIS: Cross Track Infrared Sounder.
+\item ECV: Essential Climate Variables.
+\item GCOS: Glocal climate Observing System.
+\item IASI: Infra-red Atmospheric Sounding Interferometer.
+\item ILS: Instrument Line Shape.
+\item LBL: Line-by-line.
+\item SRF: Spectral Response Function.
+\item TOA: Top of Atmosphere.
+\item UMBC: University of Maryland Baltimore County.
+\item WMO: World Meteorological Organisation
+\end{itemize}
+
+\section{References:}
+\label{sec:orgheadline16}
+
+\begin{thebibliography}{9}
+
+\bibitem{wielicki2013}
+  Wielicki et al.,
+  \emph{},
+  BAMS 2013
+  DOI:10.1175/BAMS-D-12-00149.1
+
+\bibitem{solomon2010}
+  Solomon et al.,
+  \emph{},
+  Bull. Amer. Meteor. Soc.. 2010, 
+  DOI: 10.1175/2010BAMS2962.1
+
+\bibitem{ipcc2007_wg1}
+ $ https://www.ipcc.ch/publications_and_data/ar4/wg1/en/ch3.html $
+
+\bibitem{gcos}
+ $ http://www.wmo.int/pages/prog/gcos/index.php?name=ClimateObservationNeeds $
+
+\bibitem{Hollmann2013}
+  Bull. Amer. Meteor. Soc.. 2013, 
+  DOI: 10.1175/BAMS-D-11-00254.1
+
+\bibitem{Chander2013}
+  \emph{},
+  Chander G., at al.
+  Overview of Intercalibration of Satellite Instruments
+  IEEE Trans. Geosci. Remote Sensing, vol 51, no. 3, 2013
+  DOI: 10.1109/TGRS.2012.2228654
+  
+\bibitem{Wang2007}
+  \emph{},
+  Wang, L et al., 
+  Assessing NOAA-16 HIRS Radiance Accuracy Using Simultaneous Nadir Overpass Observations from AIRS
+  J. Atmos. Ocean. Tech. Vol 24, pp 1546 - 1561.
+  DOI: 10.1175/JTECH2073.1
+
+\bibitem{Wang2011}
+  \emph{},
+  Wang L., et al. 
+  Consistency assessment of Atmospheric Infrared Sounder and Infrared Atmospheric Sounding Interferometer radiances: Double differences versus simultaneous nadir overpasses.
+ JOURNAL OF GEOPHYSICAL RESEARCH, VOL. 116, D11111,
+ doi:10.1029/2010JD014988, 2011
+
+\bibitem{Uprety2013}
+  \emph{},
+  Uprety, S., et al. 
+  Radiometric Intercomparison between Suomi-NPP VIIRS and Aqua MODIS Reflective Solar Bands Using   Simultaneous Nadir Overpass in the Low Latitudes.
+  J. Atmos. Ocean Tech. Vol 30. pp2720 - 
+  DOI: 10.1175/JTECH-D-13-00071.1
+
+\bibitem{GSICS2008}
+  \emph{},
+  Lacovazzi Ed.,Global Space-Based Inter-Calibration System (GSICS) Quarterly,
+  Vol. 2, No. 3, 2008.
+
+\bibitem{Elliott2009}
+  \emph{},
+  Elliott, D.A., et al.
+  Two-year comparison of radiances from the Atmospheric Infrared Sounder (AIRS) and the Infrared Atmospheric Sounding Interferometer (IASI),
+  SPIE Vol. 7456, 74560S, 2009.
+  doi: 10.1117/12.826996
+
+\bibitem{Wang2015}
+  \emph{},
+  Wang, L., et al. Radiometric consistency assessment of hyperspectral infrared sounders.
+  Atmos. Meas. Tech., 8, 4831-4844, 2015.
+  doi:10.5194/amt-8-4831-2015
+
+\bibitem{Ciren2003}
+  \emph{},
+  Ciren, P., and C. Cao, 2003: First comparison of radiances measured by AIRS/AQUA and HIRS/NOAA-16 and -17. 
+  Proc. Int. TOVS Study Conf. XIII, Sainte Adèle, QC, Canada, International TOVS Working Group, 609–627.
+
+\bibitem{Motteler2017a}
+  \emph{},
+  Motteler, H.E., Strow, L.L.
+  AIRS Deconvolution and Translation from the AIRS to CRIS IR Sounders
+  in prep.
+
+\bibitem{airscalib}
+  Strow et al. 
+  Pre-launch Spectral Calibration of the Atmospheric Infrared Sounder.
+  IEEE trans. Geosci. remote sens,
+  vol 41,(2) 2003, pp 274.
+  DOI: 10.1109/TGRS.2002.808245
+
+\bibitem{airseos}
+  Aumann, H.H., and Miller, Chris, 
+  "Atmospheric Infrared Sounder (AIRS) on the Earth Observing System", 
+  SPIE Vol.2583, 32-343, 1995.
+
+\bibitem{crisweb}
+ $ http://www.jpss.noaa.gov/cris.html $
+
+\bibitem{criscal}
+  Tobin. D. et al.
+  Suomi-NPP CrIS radiometric calibration uncertainty.
+  J. Geophys Re. Atmos. 118 (2013) pp 10,589 - 10,600.
+  doi: 10.1002/jgrd.50809
+
+\bibitem{iasiweb}
+  $ http://www.eumetsat.int/website/home/Satellites/CurrentSatellites/Metop/MetopDesign/IASI/index.html $
+
+\bibitem{iasiover}
+  Chalon G, Cayla F, Diebel D. 2001. 
+  ‘IASI: an advanced sounder for operational meteorology’. 
+  Proceedings of the 52nd Congress of IAF, Toulouse, France, 1–5 October 2001.
+
+\bibitem{Motteler2017b}
+  \emph{},
+  private communication
+
+\bibitem{kcarta1998}
+  \emph{},
+  L. Strow, H. E. Motteler, R. G. Benson, S. E. Hannon, and S. D. Souza-Machado. 
+  Fast computation of monochromatic infrared atmospheric transmittances using compressed look-up tables. 
+  Journal of Quantitative Spectroscopy and Radiative Transfer, 59(35):481 – 493, 1998. 
+  Atmospheric Spectroscopy Applications 96.
+  https://doi.org/10.1016/S0022-4073(97)00169-6
+
+\bibitem{Duan2014}
+  \emph{},
+  Duan S., et al.,
+  Estimation of Diurnal Cycle of Land Surface Temperature at High Temporal and Spatial Resolution from Clear-Sky MODIS Data.
+  Remote Sens., 2014 (6) 3247-3262,
+  DOI:10.3390/rs6043247
+  
+\end{thebibliography}
+
+
+\section{Appendices}
+\label{sec:orgheadline18}
+\subsection{AIRS L1C filled gaps}
+\label{sec:orgheadline17}
+\begin{center}
+\begin{tabular}{l}
+681.99,   687.60\\
+781.88,   789.26\\
+903.78,   911.23\\
+1046.20, 1056.07\\
+1136.63, 1216.97\\
+1272.59, 1284.35\\
+1443.07, 1460.27\\
+1527.00, 1541.10\\
+1613.86, 2181.49\\
+2557.41 ,2558.53\\
+\end{tabular}
+\end{center}
+
+\end{document}
+
+
+%PDO:
+%Minobe, S. 1997: A 50-70 year climatic oscillation over the North Pacific and North America. %Geophysical Research 
+%Letters, Vol 24, pp 683-686.
+
+%Bond, N.A. and D.E. Harrison (2000): The Pacific Decadal Oscillation, air-sea interaction and %central north Pacific winter atmospheric regimes. Geophys. Res. Lett., 27(5), 731-734.
+
+%AMOC:
+%Trenberth, K.E. and D.J. Shea (2006): Atlantic hurricanes and natural variability in 2005. %Geophysical Research Letters 33, L12704, \url{doi:10.1029/2006GL026894} [pdf]
+
+%Schlesinger, M.E. and Navin Ramankutty (1994): An oscillation in the global climate system of %period 65-70 years. Nature, 367, Issue 6465, pp. 723-726, DOI: 10.1038/367723a0
+
+%ENSO:
+%The 1990–1995 El Niño-Southern Oscillation Event: Longest on Record
+%Kevin E. Trenberth andTimothy J. Hoar. Geophysical Research Letters
+%Volume 23, Issue 1, pages 57–60, 1 January 1996.
+
+%Leetmaa, A. 1999: The first El Niño observed and forecasted from start to finish. Bull. Am. Met. %Soc., 80, 111-112.
+
+
+%ECVs
+%\url{http://www.wmo.int/pages/prog/gcos/}
+

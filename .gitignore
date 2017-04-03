@@ -1,0 +1,41 @@
+#
+# sno_paper_2016 git ignore
+#
+
+# data & misc
+*.h5
+*.hdf
+*.mat
+*.log
+*.core
+*.dat
+
+# tex & docs
+*.aux
+*.toc
+*.snm
+*.nav
+*.out
+*.vrb
+*.bbl
+*.blg
+*.log
+
+# archives and packages
+*.gz
+*.tgz
+*.tar
+*.zip
+*.bz2
+
+# libs and object files
+*.a
+*.o
+*.so
+*.mexa64
+
+# backup files
+*.svn
+*.bak
+*~
+
