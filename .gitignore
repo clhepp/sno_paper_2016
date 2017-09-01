@@ -10,6 +10,10 @@
 *.core
 *.dat
 
+# Use only PDF figures
+*.png
+*.fig
+
 # tex & docs
 *.aux
 *.toc

@@ -383,7 +383,9 @@ Note that the original AIRS spectrum of observations include the repaired bad ch
 
 The division of the SNOs into day/night or north/south hemisphere subsets is un-remarkable and not shown here.
 
-The variation of bias between AIRS and CrIS with scene brightness temperature is shown in figure \ref{fig:Y6} for a channel at $ 900 cm^{-1} $. As with the IASI:CrIS comparison the bias is not constant over the dynamic range of interest. The estimate of uncertainty using the standard error of the mean bias, shown in this figure, appears to underestimate the true sampling uncertainty where scenes involve extremely hot or extremely cold radiances. The jump in the bias above about 300 K has been investigated in detail and is mostly attributed to scene inhomogeneity. Hot scenes above about 300 K occur exclusively over land during the day and is a problem in non-uniform scenes and when the surface temperature is changing quickly.
+The variation of bias between AIRS and CrIS with scene brightness temperature is shown in figure \ref{fig:Y6} for a channel at $ 900 cm^{-1} $. As with the IASI:CrIS comparison the bias is not constant over the dynamic range of interest. The estimate of uncertainty using the standard error of the mean bias, shown in this figure, appears to under estimate the true sampling uncertainty where scenes involve extremely hot or extremely cold radiances. The jump in the bias above about 300 K has been investigated in detail and is mostly attributed to scene inhomogeneity. Hot scenes above about 300 K occur exclusively over land during the day and the AIRS observations are always later than the CrIS observations, furthermore, the hottest locations tend to be very localized so there is the added complication of non-uniform scenes and more rapidly changing surface temperatures.
+
+In order to test whether CrIS sees more hot scenes than AIRS the population distribution is determined as a function of scene brightness temperature, for the whole year 2016 and for all fields of view and without restrction to SNO pairing, such that there are no data gaps. The fractional difference in the number of observations is shown in figure \ref{fig:Y7}, and clearly shows that from about 300 K to 320 K there is negligible difference between the two sensors.  
 
 \begin{figure}[htb]
 \centering
@@ -393,7 +395,25 @@ The variation of bias between AIRS and CrIS with scene brightness temperature is
 \label{fig:Y6}
 \end{figure}
 
-The number of samples in a given month are sufficient to estimate any temporal trend of the bias, and the result is shown in figure \ref{fig:Y7} for a window channel. This analysis uses an extended SNO data set using CrIS data from the in-house CCAST (CrIS Calibration Algorithm and Sensor Testbed) processing \cite{Motteler2014} and AIRS L1C restricted to tropical scenes. The mean
+\begin{figure}[htb]
+\centering
+\includegraphics[width=.6\linewidth]{./figs/full_scan_land_2016_all_mod.pdf}
+\caption{\label{fig:orgparagraph18}
+  AIRS and CrIS Observation counts as a function of the $900 cm^{-1}$ channel scene temperature. All 2016 full scans over land. See text for further discussion}
+\label{fig:Y7}
+\end{figure}
+
+Furthermore, it is known that CrIS uses motion compensation in the scanning mirror so as to remain at a fixed point on the Earth whilst a measurement is obtained. AIRS does not and so it's effective observation footprint will be larger than the geometric FoV as determined by its optical field stops. Since the hot scenes are known by inspection to involve inhomogeneous scenes, the effect can be simulated by taking two adjacent CrIS footprints and taking a weighted average at the SNO observation. Using a $20:80 \% $ average a simulation of the effect of motion smearing can be obtained. Results are shown in figure \ref{fig:Y8}. This clearly shows that the hot bias from about 300 K to 320 K is mitigated. Above about 320 K there are too few samples to be significant. The cold scenes are somewhat impacted as expected.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=.6\linewidth]{./figs/2013_AC_quantile_wSimAIRS.pdf}
+\caption{\label{fig:orgparagraph18}
+  Bias of AIRS minus CrIS for a 900 cm-1 channel vs scene B.T. Simulated motion smear compared to original}
+\label{fig:Y8}
+\end{figure}
+
+The number of samples in a given month are sufficient to estimate any temporal trend of the bias, and the result is shown in figure \ref{fig:Y9} for a window channel. This analysis uses an extended SNO data set using CrIS data from the in-house CCAST (CrIS Calibration Algorithm and Sensor Testbed) processing \cite{Motteler2014} and AIRS L1C restricted to tropical scenes. The mean
 bias for this channel for the whole dataset is within uncertainty the same as the previous results shown. Note that no spectral calibration has been applied to the AIRS L1b data to take account of any drifts in the spectrometer. The trend is estimated to be about 2 to 3 mK per year at 95\% confidence. 
 
 \begin{figure}[htb]
@@ -401,7 +421,7 @@ bias for this channel for the whole dataset is within uncertainty the same as th
 \includegraphics[width=.6\linewidth]{./figs/AC_aslSNO_900wn_biasTrend_screened.pdf}
 \caption{\label{fig:orgparagraph18}
   Temporal bias trend (AIRS - CrIS) for a 900 cm-1 channel}
-\label{fig:Y7}
+\label{fig:Y9}
 \end{figure}
 
 
