@@ -13,6 +13,8 @@
 # Use only PDF figures
 *.png
 *.fig
+./figs/*.fig
+./figs/*.png
 
 # tex & docs
 *.aux
