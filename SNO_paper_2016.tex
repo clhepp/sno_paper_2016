@@ -151,7 +151,7 @@ The main points to note are: 1). The use of Hamming apodized radiances 2). There
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=\linewidth]{./figs/airs2cris_validation_LW_MW.pdf}
+\includegraphics[width=\linewidth]{./figs/airs2cris_validation_lw_mw.pdf}
 \caption{
   Brightness temperature spectra for AIRS to CrIS LW band.}
 \label{fig:1a}
@@ -169,7 +169,7 @@ Validation of the IASI to CrIS deconvolution using the 49 test profiles and kcar
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=\linewidth]{./figs/iasi2cris_validation_LW_MW.pdf}
+\includegraphics[width=\linewidth]{./figs/iasi2cris_validation_lw_mw.pdf}
 \caption{
   Brightness temperature spectra for IASI to CrIS LW (left) MW (right) band. Note the change of y-scale}
 \label{fig:2a}
@@ -194,7 +194,7 @@ shown in figure \ref{fig:X1}
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=\linewidth]{./figs/AC_IC_jplSNO_maps.pdf}
+\includegraphics[width=\linewidth]{./figs/ac_ic_jpl_sno_maps.pdf}
 \caption{
   SNO Location maps. Left: AIRS:CrIS showing time delay. Right: IASI:CrIS, showing $900 cm^{-1}$ brightness temperature.}
 \label{fig:X1}
@@ -246,30 +246,23 @@ relatively large difference in the mean brightness temperatures between the two 
 %\end{figure}
 
 
-\begin{figure*}[htb]
+\begin{figure}[htb]
     \centering
-    \subfloat[Long Wave]
-             {\includegraphics[width=0.48\linewidth]{./figs/IC_jplSNO_dayNight_Bias_stdErr_LW.pdf} }
-    \subfloat[Medium Wave]
-{\includegraphics[width=0.48\linewidth]{./figs/IC_jplSNO_dayNight_Bias_stdErr_MW.pdf} }
+  \includegraphics[width=\linewidth]{./figs/ic_jpl_sno_day_night_bias_stderr_lw_mw.pdf}
     \caption{CrIS - IASI bias (K) subset by day or night. Upper panel: Mean brightness temperature. Lower panel: mean bias and standard error.}
     \label{fig:X5}
-\end{figure*}
+\end{figure}
 
-Figure \ref{fig:X7} shows the mean spectra, the mean bias and the standard error of the bias for the north and south subsets.
-As with the day/night subset although the scenes are very different the mean biases are
+Figure \ref{fig:X7} shows the mean spectra, the mean bias and the standard error of the bias for the northern and southern hemisphere subsets.
+As with the day and night subsets, although the scenes are very different the mean biases are
 very similar.
 
-\begin{figure*}[htb]
-  \centering
-  \subfloat[Long Wave]
-           {\includegraphics[width=0.48\linewidth]{./figs/IC_jplSNO_northSouth_Bias_stdErr_LW.pdf}}
-\hfill
-  \subfloat[Medium Wave]
-           {\includegraphics[width=0.48\linewidth]{./figs/IC_jplSNO_northSouth_Bias_stdErr_MW.pdf}}
+\begin{figure}[htb]
+  \centering          \includegraphics[width=\linewidth]{./figs/ic_jpl_sno_north_south_bias_stderr_lw_mw.pdf}
   \caption{CrIS - IASI bias (K) subset by north or south hemisphere. Upper panel: Mean brightness temperature. Lower panel: mean bias and standard error.}
   \label{fig:X7}
-\end{figure*}
+\end{figure}
+
 
 To determine if the bias varies over the brightness temperature of the scenes, the SNO pairs are binned according to the BT for each channel from each pair. The contribution from each sensor in each BT bin is included without duplication.  A fine-grained quantile profiler is used to select the bin values for each channel, since different wavelengths will see different dynamic ranges.  In dividing up the samples into small bins it will be noticed that at the hot and cold ends of the range some bins have too few samples to be useful, as can be seen from figure \ref{fig:X8}, in which the standard error grows very large. This figure shows the result both for a single channel at $900 cm^{-1}$ and the the mean bias of 160 window channels from about $800\ to\ 900 cm^{-1}$. Note that in this plot the bias is the CrIS minus IASI bias observation. Examining this figure suggests that the bias is rather close to zero near 270 K, and increases slightly to colder scenes, with CrIS observations warmer than IASI. Also that the bias variation with scene
 is very consistent amongst all these channels. Due to the sample size in the bins used here, the valid range is from about 210 K to 280 K scenes, outside this range the estimate of bias is unreliable.
@@ -288,7 +281,7 @@ At this point it would be speculation to attribute the variation of bias as a fu
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=\linewidth]{./figs/ic_jpl_sno_bias_stderr_vs_scene_LW_chans.pdf}
+\includegraphics[width=\linewidth]{./figs/ic_jpl_sno_bias_stderr_vs_scene_lw_chans.pdf}
 \caption{
   CrIS-IASI bias (K) for a single channel at 900 cm$^{-1}$ and mean bias of 160 channels from 800 to 900 cm$^{-1}$ as a function of scene brightness temperature together with the standard deviation. Lower panel shows the opulation size per temperature bin.}
 \label{fig:X8}
@@ -359,19 +352,26 @@ For channels that are at wavelengths with weighting functions that peak higher i
 With the conversion of AIRS level 1b radiance spectra first to the clean and filled level 1c
 then to the CrIS spectra grid, allows bias differences to be evaluated for the
 channels that are common to both AIRS and CrIS. An example of the mean brightness
-temperature bias CrIS-AIRS for the long wave (LW) band for all SNO samples in this
+temperature bias CrIS-AIRS for the long and medium wave bands for all SNO samples in this
 data set, is shown in figure \ref{fig:Y6}. Notice that the standard error is very small.
 
-\begin{figure*}[htb]
+\begin{figure}[htb]
   \centering
-  \subfloat[Long Wave]{
-     \includegraphics[width=0.48\linewidth]{./figs/AC_jplSNO_Bias_stdErr_wModEdges_LW.pdf}}
-  \subfloat[Medium Wave]{
-     \includegraphics[width=0.48\linewidth]{./figs/AC_jplSNO_Bias_stdErr_wModEdges_MW.pdf}}
-  \caption{
-    CrIS - AIRS mean bias and standard error of the SNO set. Vertical bars mark AIRS array module boundaries.}
+  \includegraphics[width=\linewidth]{./figs/ac_jpl_sno_bias_stderr_lw_mw_mod_gaps_markers.pdf}
+  \caption{CrIS - AIRS mean bias and standard error of the SNO. Black diamonds mark AIRS detector module edges.}
   \label{fig:Y6}
-\end{figure*}
+\end{figure}
+
+%\begin{figure*}[htb]
+%  \centering
+%  \subfloat[Long Wave]{
+%     \includegraphics[width=0.48\linewidth]{./figs/AC_jplSNO_Bias_stdErr_wModEdges_LW.pdf}}
+%  \subfloat[Medium Wave]{
+%     \includegraphics[width=0.48\linewidth]{./figs/AC_jplSNO_Bias_stdErr_wModEdges_MW.pdf}}
+%  \caption{
+%    CrIS - AIRS mean bias and standard error of the SNO set. Vertical bars mark AIRS array module boundaries.}
+%  \label{fig:Y6}
+%\end{figure*}
 
 %\begin{figure}[htb]
 %\centering
@@ -438,17 +438,22 @@ The AIRS and IASI SNOs are restricted to the near-polar latitudes similar to the
 CrIS and IASI SNOs discussed previously. The criteria for selection based upon spatial and temporal separation is the same as for CrIS and IASI SNOs. The data set used here is for 2013 and consists of about 55,000 SNO pairs. 
 
 The deconvolution of IASI onto the AIRS SRFs will not normally be performed for trending analysis, but is a useful exercise to demonstrate consistency amongst the different sensor pairing. In this study the AIRS L1c data are used therefore the spectral gaps and noisy channels of AIRS have been repaired.
-The brightness temperature bias between IASI and AIRS for the LW band using all samples is shown in figure \ref{fig:Z1}, this figure also shows the variation of the bias between AIRS and IASI for the channel at 900 cm${-1}$ as a function of the brightness temperature of the scene. It is possible to conclude that the bias between AIRS and CrIS is less than 0.2 K and over much f the LW band of the order of 0.1 K with a standard error of the mean due to the sampling of about 10 mK.
+The brightness temperature bias between IASI and AIRS using the SNO samples is shown in figure \ref{fig:Z1}, this figure also shows the standard error of the mean bias and the location of the AIRS detector module edges. These indicate the location of gaps in the AIRS L1b channels. 
+
+\begin{figure}[htb]
+  \centering   \includegraphics[width=\linewidth]{./figs/2013_ai_l1c_asl_sno_mean_stderr_lw_mw_gaps_markers.pdf}
+  \caption{Bias between AIRS and IASI for the 2013 SNO (blue), the standard error of the mean (red). AIRS detector array module edges and gaps marked with black diamonds. }
+  \label{fig:Z1}
+\end{figure}  
+
+Figure \ref{fig:Z2} shows the variation of the bias between AIRS and IASI for the channel at 900 cm${-1}$ as a function of the brightness temperature of the scene. It is possible to conclude that the bias between AIRS and CrIS is less than 0.2 K and over much of the LW band of the order of 0.1 K with a standard error of the mean due to the sampling of about 10 mK or less.
 
 \begin{figure}[htb]
   \centering
-  \subfloat[]{
-    \includegraphics[width=0.48\linewidth]{./figs/2013_ai_l1c_asl_sno_mean_stderr_lw.pdf}}
-  \subfloat[]{
-    \includegraphics[width=0.48\linewidth]{./figs/AI_jplSNO_bias_std_900wn_vs_scene.pdf}}
+    \includegraphics[width=\linewidth]{./figs/ai_jpl_sno_bias_std_900wn_vs_scene.pdf}
 \caption{
   2013 AIRS:IASI SNO. a:  mean bias and standard error in the LW band. b: (upper) $900\ cm^{-1}$ channel bias and std. error vs scene B.T. (lower) bin population.}
-\label{fig:Z1}
+\label{fig:Z2}
 \end{figure}
 
 %For completeness, the variation of bias as a function of scene brightness for the window channel %at $ 900 cm^{-1} $ is shown in figure \ref{fig:Z2}. Notice that most observations are around 250 K %because of the polar coverage.
@@ -469,15 +474,12 @@ The brightness temperature bias between IASI and AIRS for the LW band using all 
 The bias for each of the three pairs of sensor SNO sets is shown in figure \ref{fig:U1} for the LW and MW bands. The upper panel shows the AIRS compared to CrIS and IASI and the lower panel CrIS compared to IASI.  The standard errors are not re-plotted here, but have numerical values the same as reported in the preceding sections. Note that in the lower panels, the CrIS - IASI bias follows the double difference of the upper panel.  
 
 
-\begin{figure*}[htb]
+\begin{figure}[htb]
   \centering
-  \subfloat[LW]{
-    \includegraphics[width=0.48\linewidth]{./figs/AC_AI_CI_biasBT_LW_legend.pdf}}
-  \subfloat[MW]{
-    \includegraphics[width=0.48\linewidth]{./figs/AC_AI_CI_biasBT_MW_legend.pdf}}
+    \includegraphics[width=\linewidth]{./figs/ac_ai_ci_bias_lw_mw.pdf}
   \caption{ Combined plot of biases referenced to the CrIS grid. Upper panel: AIRS - IASI (blue) AIRS - CrIS (red), lower panel: CrIS - IASI.}
   \label{fig:U1}
-\end{figure*}
+\end{figure}
 
 
 \section{Conclusions}
