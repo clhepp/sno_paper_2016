@@ -268,17 +268,6 @@ To determine if the bias varies over the brightness temperature of the scenes, t
 is very consistent amongst all these channels. Due to the sample size in the bins used here, the valid range is from about 210 K to 280 K scenes, outside this range the estimate of bias is unreliable.
 At this point it would be speculation to attribute the variation of bias as a function of radiance, as it could be due to non-linearity of either or both sensors, for example. This study of scene dependent bias can be extended to all channels (not shown here).
 
-%\begin{figure}[htb]
-%\centering
-%\includegraphics[width=\linewidth]{./figs/IC_jplSNO_Bias_stdErr_900wn_vsScene_quantile.pdf}
-%\caption{
-%  CrIS-IASI bias (K) for channel at $900 cm^{-1}$ as a function of scene brightness temperature, %upper panel, together with the standard error. Lower panel shows the sample size in the bins.}
-%\label{fig:X7}
-%\end{figure}
-
-%Taking 160 window channels from about $800\ to\ 900 cm^{-1}$, the bias variation with scene
-%is very consistent amongst these channels, summarizing these in figure \ref{fig:X8} showing the %mean bias and standard deviation of the bias. Taking small groups of channels starting at the %longest wavelength (lowest numbered) shows the the bias is more constant with scene temperature %and from about 710 $cm^{-1}$ the bias takes on a slope like that shown in figure \ref{fig:X7}. At %this point it would be speculation to attribute the variation of bias as a function of radiance, %as it could be due to non-linearity of either or both sensors, for example. This study of scene %dependent bias can be extended to all channels (not shown here).
-
 \begin{figure}[htb]
 \centering
 \includegraphics[width=\linewidth]{./figs/ic_jpl_sno_bias_stderr_vs_scene_lw_chans.pdf}
@@ -359,14 +348,6 @@ Furthermore, it is known that CrIS uses motion compensation in the scanning mirr
 The number of samples in a given month are sufficient to estimate any temporal trend of the bias. This analysis uses an extended SNO data set from summer 2012 to 2015, using CrIS data from the in-house CCAST (CrIS Calibration Algorithm and Sensor Testbed) processing \cite{Motteler2014} and AIRS L1C restricted to tropical scenes. The mean
 bias for a 900 $cm^{-1}$ channel for the whole dataset is, within uncertainty, the same as the previous results shown. As before, no spectral drift correction has been applied to the AIRS L1b data to take account of changes in the spectrometer. The trend is estimated to be about 2 to 3 mK per year at 95\% confidence. 
 
-%\begin{figure}[htb]
-%\centering
-%\includegraphics[width=\linewidth]{./figs/AC_aslSNO_900wn_biasTrend_screened.pdf}
-%\caption{
-%  Temporal bias trend (AIRS - CrIS) for a 900 cm-1 channel}
-%\label{fig:Y9}
-%\end{figure}
-
 
 \subsection{AIRS and IASI SNOs}
 The AIRS and IASI SNOs are restricted to the near-polar latitudes similar to the 
@@ -390,17 +371,6 @@ Figure \ref{fig:Z2} shows the variation of the bias between AIRS and IASI for th
   2013 AIRS:IASI SNO. a:  mean bias and standard error in the LW band. b: (upper) $900\ cm^{-1}$ channel bias and std. error vs scene B.T. (lower) bin population.}
 \label{fig:Z2}
 \end{figure}
-
-%For completeness, the variation of bias as a function of scene brightness for the window channel %at $ 900 cm^{-1} $ is shown in figure \ref{fig:Z2}. Notice that most observations are around 250 K %because of the polar coverage.
-
-%\begin{figure}[htb]
-%\centering
-%\includegraphics[width=\linewidth]{./figs/AI_jplSNO_bias_std_900wn_vScene.pdf}
-%\caption{
-%   2013 IASI:AIRS SNO data. Upper: IASI - AIRS bias for the 900 cm window channel as a function of %scene (black line) and the standard error of the mean (red lines). Lower: Sample bin population.}
-%\label{fig:Z2}
-%\end{figure}
-
 
 
 \subsection{AIRS and IASI on the common CrIS grid}

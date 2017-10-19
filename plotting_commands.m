@@ -1,5 +1,4 @@
 x = load('/Users/Hepplewhite/asl.maya/gitLib/asl_sno/data/L2.chan_prop.2002.10.22.v9.5.3.mat');
-x
 cmods = unique(x.cmod);                   % <- 17 cell
 for i = 1:length(cmods)
 j = ismember(x.cmod,cmods{i});            % provides index to use for valid cmods{i}
