@@ -48,7 +48,7 @@ A long term hyper-spectral radiance record using multiple sensors for climate mo
 
 The conversion of the radiance measurements from AQUA-AIRS (Atmospheric Infrared Sounder), Suomi-NPP CrIS (Cross-track Infrared Sounder) and MetOp IASI (Infrared Atmospheric Sounding Interferometer) to a common spectral grid is described and validated. The common grid adopted here is that used by the nominal CrIS instrument. The goal with the current sensors is to produce a radiance climate record from September 2002 well into the future, currently representing 14+ years, for studying climate trends and anomalies.
 
-The conversion of the radiance spectra from one spectral grid to another is detailed in a companion paper. The method is validated using simulations from standard atmospheric profiles and a fast high-resolution forward model. A considerable advantage of this method over others is that trends and anomalies in top-of-atmosphere radiance can be obtained over a large spectral range in the thermal infra-red at high spectral resolution.
+The conversion of the radiance spectra from one spectral grid to another is detailed in a companion paper \cite{Motteler2017a}. The method is validated using simulations from standard atmospheric profiles and a fast high-resolution forward model. A considerable advantage of this method over others is that trends and anomalies in top-of-atmosphere radiance can be obtained over a large spectral range in the thermal infra-red at high spectral resolution.
 
 The principal method used to validate the combined data set is with very large samples of simultaneous nadir overpass (SNO) observations. From these, the biases and stability characteristics of the sensors and any dependencies on the SNO scenes are determined.
 
@@ -120,12 +120,12 @@ In the real world, the infra-red radiance includes bands of high contrast molecu
 Consider the AIRS sensor, it's SRFs are specified by a nominal center frequency and a relative response tabulation as a function of frequency.
 
 For the AIRS to CrIS translation the transform $S_b$ for {\srf}s is performed at an intermediate
-resolution of 0.1 $cm{-1}$, commensurate with the original measured response tabulation and for reconvolution to the CrIS spectral grid.  Letting $\vec v_b = v_1,v_2,\ldots,v_m$ be a
+resolution of 0.1 $cm^{-1}$, commensurate with the original measured response tabulation and for reconvolution to the CrIS spectral grid.  Letting $\vec v_b = v_1,v_2,\ldots,v_m$ be a
 0.1 $cm^{-1}$ grid spanning the domains of the functions $\sigma_i$.
 Similar to $S_k$, let $S_b$ be an $n\times m$ array where row $i$ is
 $\sigma_i(v)$ tabulated at the $\vec v_b$ grid, with rows normalized
 to~1.  If $r$ is radiance at the $\vec v_b$ grid, then $c = S_b r$
-is still a reasonable approximation of $\int\sigma_i(v)r(v)\,dv$.
+is still a reasonable approximation of the channel radiances $\int\sigma_i(v)r(v)\,dv$.
 
 In this work we start with $c$ and find $r$, that is
 to deconvolve $c$ by solving $S_b r = c$ for $r$.  Since $m < k$ the
@@ -143,7 +143,7 @@ Determination of the simultaneous nadir observations (SNOs) from pairs of AIRS a
 
 The translation of AIRS and IASI to the CrIS spectral grid is validated primarily by simulating the TOA radiance at high spectral resolution then convolving with the instrument SRF or ILS, then passing the simulated sensor signals through the translation process as outlined in the previous section and comparing results. Since CrIS has two spectral gaps in the TIR, the  645 $cm^{-1}$ to 2570 $cm^{-1}$ band is divided into three sub-regions labelled long, medium and short (LW, MW and SW resp.).
 
-The simulated TOA radiance is produced using the UMBC k-Compressed Radiative Transfer Algorithm (kCARTA) line-by-line (LBL) model \cite{kcarta1998} and 49 standard atmospheric composition profiles \cite{TIGR1998}. The forward model is computed at the native resolution of $0.0025\ cm^{-1}$ and then convolved with the instrument response functions to produce a simulated true spectral radiance signal as measured by the sensors. The AIRS spectra are then translated onto the CrIS spectral grid, referred to as AIRS-to-CrIS, and the two are compared by simple subtraction. The average difference and the standard error of the difference are evaluated and plotted. The same is done for IASI-to-CrIS. 
+The simulated TOA radiance is produced using the UMBC k-Compressed Radiative Transfer Algorithm (kCARTA) line-by-line (LBL) model \cite{kcarta1998} and 49 standard atmospheric composition profiles \cite{TIGR1998}. The forward model is computed at the native resolution of $0.0025\ cm^{-1}$ and then convolved with the instrument response functions to produce a simulated true spectral radiance signal as measured by the sensors. The AIRS spectra are then translated onto the CrIS spectral grid, referred to as AIRS-to-CrIS, and the two are compared by simple subtraction. For further details refer to  \cite{Motteler2017a}. The average difference and the standard error of the difference are evaluated and plotted. The same is done for IASI-to-CrIS. 
 
 Figure \ref{fig:1a} shows the LW and MW band brightness temperature difference spectra for the translation of AIRS to CrIS for the 49 validation profiles.
 
@@ -194,7 +194,7 @@ shown in figure \ref{fig:X1}
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=\linewidth]{./figs/ac_ic_jpl_sno_maps.pdf}
+\includegraphics[width=\linewidth]{./figs/fig3_resize.pdf} %%ac_ic_jpl_sno_maps.pdf}
 \caption{
   SNO Location maps. Left: AIRS:CrIS showing time delay. Right: IASI:CrIS, showing $900 cm^{-1}$ brightness temperature.}
 \label{fig:X1}
@@ -207,7 +207,7 @@ the majority of scenes involve ice, in the form of cloud or on the ground or oce
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=\linewidth]{./figs/ac_ic_jpl_sno_900wn_hist.pdf}
+\includegraphics[width=\linewidth]{./figs/fig4_resize.pdf} %%ac_ic_jpl_sno_900wn_hist.pdf}
 \caption{
   SNO PDFs. Left: CrIS:IASI $900 cm^{-1}$ channel. Right: AIRS:CrIS $900 cm^{-1}$ brightness temperature distribution vs scene bin.}
 \label{fig:X2}
@@ -248,8 +248,8 @@ relatively large difference in the mean brightness temperatures between the two 
 
 \begin{figure}[htb]
     \centering
-  \includegraphics[width=\linewidth]{./figs/ic_jpl_sno_day_night_bias_stderr_lw_mw.pdf}
-    \caption{CrIS - IASI bias (K) subset by day or night. Upper panel: Mean brightness temperature. Lower panel: mean bias and standard error.}
+  \includegraphics[width=\linewidth]{./figs/fig6_resize.pdf}%%ic_jpl_sno_day_night_bias_stderr_lw_mw.pdf}
+    \caption{CrIS \& IASI brightness temperature spectra (K) subset by day or night. Upper panel: Mean brightness temperature. Lower panel: mean bias and standard error.}
     \label{fig:X5}
 \end{figure}
 
@@ -258,8 +258,8 @@ As with the day and night subsets, although the scenes are very different the me
 very similar.
 
 \begin{figure}[htb]
-  \centering          \includegraphics[width=\linewidth]{./figs/ic_jpl_sno_north_south_bias_stderr_lw_mw.pdf}
-  \caption{CrIS - IASI bias (K) subset by north or south hemisphere. Upper panel: Mean brightness temperature. Lower panel: mean bias and standard error.}
+  \centering          \includegraphics[width=\linewidth]{./figs/fig7_resize.pdf}%ic_jpl_sno_north_south_bias_stderr_lw_mw.pdf}
+  \caption{CrIS \& IASI brightness temperature spectra (K) subset by north or south hemisphere. Upper panel: Mean brightness temperature. Lower panel: mean bias and standard error.}
   \label{fig:X7}
 \end{figure}
 
@@ -268,22 +268,11 @@ To determine if the bias varies over the brightness temperature of the scenes, t
 is very consistent amongst all these channels. Due to the sample size in the bins used here, the valid range is from about 210 K to 280 K scenes, outside this range the estimate of bias is unreliable.
 At this point it would be speculation to attribute the variation of bias as a function of radiance, as it could be due to non-linearity of either or both sensors, for example. This study of scene dependent bias can be extended to all channels (not shown here).
 
-%\begin{figure}[htb]
-%\centering
-%\includegraphics[width=\linewidth]{./figs/IC_jplSNO_Bias_stdErr_900wn_vsScene_quantile.pdf}
-%\caption{
-%  CrIS-IASI bias (K) for channel at $900 cm^{-1}$ as a function of scene brightness temperature, %upper panel, together with the standard error. Lower panel shows the sample size in the bins.}
-%\label{fig:X7}
-%\end{figure}
-
-%Taking 160 window channels from about $800\ to\ 900 cm^{-1}$, the bias variation with scene
-%is very consistent amongst these channels, summarizing these in figure \ref{fig:X8} showing the %mean bias and standard deviation of the bias. Taking small groups of channels starting at the %longest wavelength (lowest numbered) shows the the bias is more constant with scene temperature %and from about 710 $cm^{-1}$ the bias takes on a slope like that shown in figure \ref{fig:X7}. At %this point it would be speculation to attribute the variation of bias as a function of radiance, %as it could be due to non-linearity of either or both sensors, for example. This study of scene %dependent bias can be extended to all channels (not shown here).
-
 \begin{figure}[htb]
 \centering
 \includegraphics[width=\linewidth]{./figs/ic_jpl_sno_bias_stderr_vs_scene_lw_chans.pdf}
 \caption{
-  CrIS-IASI bias (K) for a single channel at 900 cm$^{-1}$ and mean bias of 160 channels from 800 to 900 cm$^{-1}$ as a function of scene brightness temperature together with the standard deviation. Lower panel shows the opulation size per temperature bin.}
+  CrIS-IASI bias (K) for a single channel at 900 cm$^{-1}$ and mean bias of 160 channels from 800 to 900 cm$^{-1}$ as a function of scene brightness temperature together with the standard deviation. Lower panel shows the population size in each temperature bin.}
 \label{fig:X8}
 \end{figure}
 
@@ -309,24 +298,24 @@ v) the relatively large population from about 240 K to 260 K is due to the large
 
 For channels that are at wavelengths with weighting functions that peak higher in the atmosphere, the distributions tend to be more Gaussian than the window channels, with brightness temperatures populations that peak at levels dependent upon the altitude of the weighting function. In general the window channels provide the largest BT dynamic range.
 
-With the conversion of AIRS level 1b radiance spectra first to the clean and filled level 1c
+With the conversion of AIRS level 1b radiance spectra firstly to the level 1c
 then to the CrIS spectra grid, allows bias differences to be evaluated for the
 channels that are common to both AIRS and CrIS. An example of the mean brightness
 temperature bias CrIS-AIRS for the long and medium wave bands for all SNO samples in this
-data set, is shown in figure \ref{fig:Y6}. Notice that the standard error is very small.
+data set, is shown in figure \ref{fig:Y6}. Notice that the standard error is less than 2 mK.
 
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=\linewidth]{./figs/lls_cris_minus_airs.pdf}
+  \includegraphics[width=\linewidth]{./figs/ac_jpl_sno_bias_stderr_lw_mw_mod_gaps_markers.pdf}
   \caption{CrIS - AIRS mean bias and standard error of the SNO. Black diamonds mark AIRS detector module edges.}
   \label{fig:Y6}
 \end{figure}
 
-Note that the original AIRS spectrum of observations include the repaired bad channels and filled gaps, before the spectrum is converted to the CrIS grid, therefore those artifacts are carried through to these spectral biases. In the final analysis only the original AIRS L1b channels that passed the quality screening used in the L1C processor are selected for evaluation of bias. Figure \ref{fig:Y6} also shows the frequencies of the AIRS array module edges. One can see the effect of different gain settings for some of the different modules as well as edge effects. In addition, several small spectral regions do not have any AIRS detectors and so a reconstructed during the AIRS L1C processing. These show up in the bias plots, for example $ 682 - 688 cm^{-1} $, $ 782 - 790 cm^{-1} $, $ 904 - 911 cm^{-1} $, $ 1046 - 1056 cm^{-1} $, $ 1272 - 1284 cm^{-1} $, $ 1443 - 1460 cm^{-1} $, $ 1527 - 1541 cm^{-1} $.
+Note that the original AIRS spectrum of observations include the repaired bad channels and filled gaps, before the spectrum is converted to the CrIS grid, therefore those artifacts are carried through to these spectral biases. In the final analysis only the original AIRS L1b channels that passed the quality screening used in the L1C processor are selected for evaluation of bias. Figure \ref{fig:Y6} also shows the frequencies of the AIRS array module edges. One can see the effect of different gain settings for some of the different modules as well as edge effects. In addition, several small spectral regions do not have any AIRS detectors and so are reconstructed during the AIRS L1C processing. These show up in the bias plots, for example $ 682 - 688 cm^{-1} $, $ 782 - 790 cm^{-1} $, $ 904 - 911 cm^{-1} $, $ 1046 - 1056 cm^{-1} $, $ 1272 - 1284 cm^{-1} $, $ 1443 - 1460 cm^{-1} $, $ 1527 - 1541 cm^{-1} $.
 
 The division of the AIRS:CrIS SNOs into day/night or north/south hemisphere subsets does not reveal a significant separation of bias and are not shown here.
 
-The variation of bias between AIRS and CrIS with scene brightness temperature is shown in figure \ref{fig:Y7} for a channel at $ 900 cm^{-1} $. As with the IASI:CrIS comparison the bias is not constant over the dynamic range of interest. The estimate of uncertainty using the standard error of the mean bias, shown in this figure, appears to under estimate the true sampling uncertainty where scenes involve extremely hot or extremely cold radiances. The jump in the bias above about 300 K has been investigated in detail and is mostly attributed to scene inhomogeneity. Hot scenes above about 300 K occur exclusively over land during the day and the AIRS observations are always later than the CrIS observations, furthermore, the hottest locations tend to be very localized so there is the added complication of non-uniform scenes and more rapidly changing surface temperatures.
+The variation of bias between AIRS and CrIS with scene brightness temperature is shown in figure \ref{fig:Y7} for a channel at $ 900 cm^{-1} $. As with the IASI:CrIS comparison the bias is not constant over the dynamic range of interest. The estimate of uncertainty using the standard error of the mean bias, shown in this figure, appears to underestimate the true sampling uncertainty where scenes involve extremely hot or extremely cold radiances. The jump in the bias above about 300 K has been investigated in detail and is mostly attributed to scene inhomogeneity. Hot scenes above about 300 K occur exclusively over land during the day and the AIRS observations are always later than the CrIS observations, furthermore, the hottest locations tend to be very localized so there is the added complication of non-uniform scenes and more rapidly changing surface temperatures.
 
 \begin{figure}[htb]
 \centering
@@ -359,14 +348,6 @@ Furthermore, it is known that CrIS uses motion compensation in the scanning mirr
 The number of samples in a given month are sufficient to estimate any temporal trend of the bias. This analysis uses an extended SNO data set from summer 2012 to 2015, using CrIS data from the in-house CCAST (CrIS Calibration Algorithm and Sensor Testbed) processing \cite{Motteler2014} and AIRS L1C restricted to tropical scenes. The mean
 bias for a 900 $cm^{-1}$ channel for the whole dataset is, within uncertainty, the same as the previous results shown. As before, no spectral drift correction has been applied to the AIRS L1b data to take account of changes in the spectrometer. The trend is estimated to be about 2 to 3 mK per year at 95\% confidence. 
 
-%\begin{figure}[htb]
-%\centering
-%\includegraphics[width=\linewidth]{./figs/AC_aslSNO_900wn_biasTrend_screened.pdf}
-%\caption{
-%  Temporal bias trend (AIRS - CrIS) for a 900 cm-1 channel}
-%\label{fig:Y9}
-%\end{figure}
-
 
 \subsection{AIRS and IASI SNOs}
 The AIRS and IASI SNOs are restricted to the near-polar latitudes similar to the 
@@ -390,17 +371,6 @@ Figure \ref{fig:Z2} shows the variation of the bias between AIRS and IASI for th
   2013 AIRS:IASI SNO. a:  mean bias and standard error in the LW band. b: (upper) $900\ cm^{-1}$ channel bias and std. error vs scene B.T. (lower) bin population.}
 \label{fig:Z2}
 \end{figure}
-
-%For completeness, the variation of bias as a function of scene brightness for the window channel %at $ 900 cm^{-1} $ is shown in figure \ref{fig:Z2}. Notice that most observations are around 250 K %because of the polar coverage.
-
-%\begin{figure}[htb]
-%\centering
-%\includegraphics[width=\linewidth]{./figs/AI_jplSNO_bias_std_900wn_vScene.pdf}
-%\caption{
-%   2013 IASI:AIRS SNO data. Upper: IASI - AIRS bias for the 900 cm window channel as a function of %scene (black line) and the standard error of the mean (red lines). Lower: Sample bin population.}
-%\label{fig:Z2}
-%\end{figure}
-
 
 
 \subsection{AIRS and IASI on the common CrIS grid}
